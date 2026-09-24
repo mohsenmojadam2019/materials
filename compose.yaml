@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: materials-laravel-app
+    working_dir: /app
+    ports:
+      - "8012:8012"
+    volumes:
+      - .:/app
+    command: php artisan serve --host=0.0.0.0 --port=8012

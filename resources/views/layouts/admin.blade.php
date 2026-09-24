@@ -29,11 +29,12 @@
  </aside>
  <section class="admin-body-content">
   <header class="admin-top">
-   <div class="admin-user"><span class="avatar">ع</span><div><b>علی محمدی</b><small>مدیر سیستم</small></div></div>
+   <div class="admin-user"><span class="avatar">{{ mb_substr(auth()->user()->name,0,1) }}</span><div><b>{{ auth()->user()->name }}</b><small>مدیر سیستم</small></div></div>
    <button class="icon-btn">⚙</button><button class="icon-btn notify">♧<i>۳</i></button>
    <div class="admin-date"><span>امروز</span><b>{{ \App\Support\Jalali::today() }}</b></div>
    <div class="admin-search">⌕ <input placeholder="جستجوی سریع محصول، سفارش، مشتری، کد فاکتور ..."></div>
    <a class="view-store" href="{{ route('home') }}">مشاهده فروشگاه ↗</a>
+   <form method="post" action="{{ route('logout') }}" class="admin-logout">@csrf<button type="submit">خروج</button></form>
   </header>
   <div class="admin-page-head"><div><h1>@yield('page-title')</h1><p>@yield('page-subtitle')</p></div><div class="breadcrumbs">داشبورد　/　@yield('page-title')</div></div>
   <main class="admin-content">@yield('content')</main>

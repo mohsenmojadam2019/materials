@@ -17,7 +17,15 @@
    <span class="search-icon">⌕</span><input name="q" value="{{ request('q') }}" placeholder="جستجوی محصولات، برندها یا دسته‌بندی‌ها ...">
   </form>
   <div class="header-actions">
-   <button class="ghost-btn">♙ ورود / ثبت‌نام</button>
+   @auth
+    <div class="user-menu"><span>♙ {{ auth()->user()->name }}</span>
+     @if(auth()->user()->role === 'admin')<a href="{{ route('admin.dashboard') }}">پنل مدیریت</a>@endif
+     <form method="post" action="{{ route('logout') }}">@csrf<button type="submit">خروج</button></form>
+    </div>
+   @else
+    <a class="ghost-btn" href="{{ route('login') }}">♙ ورود</a>
+    <a class="ghost-btn" href="{{ route('register') }}">ثبت‌نام</a>
+   @endauth
    <button class="cart-btn">🛒 سبد خرید <i>{{ $cartCount ?? array_sum(session('cart',[])) }}</i></button>
   </div>
  </header>

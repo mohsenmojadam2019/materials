@@ -1,10 +1,16 @@
 <?php
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use App\Models\{Category,Supplier,Product,Customer,Order,OrderItem,ProjectQuote,Shipment,FinancialTransaction,Ticket};
+use App\Models\{Category,Supplier,Product,Customer,Order,OrderItem,ProjectQuote,Shipment,FinancialTransaction,Ticket,User};
 
 class DatabaseSeeder extends Seeder {
  public function run(): void {
+  if (env('DEMO_ADMIN_EMAIL') && env('DEMO_ADMIN_PASSWORD')) {
+   User::updateOrCreate(['email'=>env('DEMO_ADMIN_EMAIL')],['name'=>env('DEMO_ADMIN_NAME','مدیر سیستم'),'password'=>env('DEMO_ADMIN_PASSWORD'),'role'=>'admin']);
+  }
+  if (env('DEMO_USER_EMAIL') && env('DEMO_USER_PASSWORD')) {
+   User::updateOrCreate(['email'=>env('DEMO_USER_EMAIL')],['name'=>env('DEMO_USER_NAME','کاربر نمونه'),'password'=>env('DEMO_USER_PASSWORD'),'role'=>'user']);
+  }
   $cats=[
    ['مصالح ساختمانی','masaleh','brick.svg'],['سیمان و ملزومات','cement','cement.svg'],
    ['آهن‌آلات','steel','rebar.svg'],['لوله و اتصالات','pipes','pipe.svg'],

@@ -116,3 +116,24 @@
 - `/admin/finance` مالی
 - `/admin/reports` گزارش
 - `/admin/settings` White-label
+
+## گالری تصاویر واقعی جدید
+
+تصاویر زیر مستقیماً در `public/assets/img/real/` استفاده می‌شوند و نسخه مستنداتی آن‌ها در `docs/images/real-assets/` قرار دارد.
+
+| دسته | تصویر |
+|---|---|
+| کناف و درای‌وال | ![Drywall](images/real-assets/drywall.webp) |
+| پنجره و آلومینیوم | ![Windows](images/real-assets/windows-aluminum.webp) |
+| سقف و عایق رطوبتی | ![Roofing](images/real-assets/roofing-waterproof.webp) |
+| لوازم بهداشتی | ![Sanitary](images/real-assets/bathroom-sanitary.webp) |
+| روشنایی و برق | ![Lighting](images/real-assets/lighting-electrical.webp) |
+| چسب و ملات کاشی | ![Tile Adhesive](images/real-assets/tile-adhesives.webp) |
+| داربست و تجهیزات کارگاهی | ![Scaffolding](images/real-assets/scaffolding.webp) |
+| یراق و اتصالات | ![Hardware](images/real-assets/hardware-fasteners.webp) |
+| تهویه و HVAC | ![HVAC](images/real-assets/hvac-ventilation.webp) |
+| نما و دکوراسیون | ![Facade](images/real-assets/facade-cladding.webp) |
+
+Hero واقعی جدید:
+
+![Hero Construction](images/real-assets/hero-construction.webp)

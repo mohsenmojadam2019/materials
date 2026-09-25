@@ -45,7 +45,7 @@
  @empty<div class="empty-state">محصولی با این فیلتر پیدا نشد.</div>@endforelse</div>
  </div>
  <aside class="calculator">
-  <div class="calc-hero"><img src="{{ asset('assets/img/banners/hero-home.svg') }}"><div><h3>محاسبه سریع هزینه پروژه</h3><p>متراژ را وارد کنید تا برآورد اولیه مصالح نمایش داده شود.</p></div></div>
+  <div class="calc-hero"><img src="{{ asset('assets/img/real/materials-overview.webp') }}"><div><h3>محاسبه سریع هزینه پروژه</h3><p>متراژ را وارد کنید تا برآورد اولیه مصالح نمایش داده شود.</p></div></div>
   <div class="calc-tabs"><button class="active" data-factor="15400000">ساخت خانه</button><button data-factor="11800000">بازسازی</button><button data-factor="6900000">دیوارچینی</button></div>
   <label>متراژ زیربنا<input id="project-area" type="number" min="1" value="250"></label>
   <label>نوع ساخت<select><option>ساخت معمولی</option><option>اقتصادی</option><option>لوکس</option></select></label>

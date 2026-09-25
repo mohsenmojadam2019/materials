@@ -13,28 +13,62 @@ class DatabaseSeeder extends Seeder {
    User::updateOrCreate(['email'=>env('DEMO_USER_EMAIL')],['name'=>env('DEMO_USER_NAME','کاربر نمونه'),'password'=>env('DEMO_USER_PASSWORD'),'role'=>'user']);
   }
   $cats=[
-   ['مصالح ساختمانی','masaleh','brick.svg'],['سیمان و ملزومات','cement','cement.svg'],
-   ['آهن‌آلات','steel','rebar.svg'],['لوله و اتصالات','pipes','pipe.svg'],
-   ['برق و روشنایی','electric','electric.svg'],['کاشی و سرامیک','tile','tile.svg'],
-   ['رنگ و عایق','paint','paint.svg'],['ابزار و تجهیزات','tools','drill.svg'],['چوب و MDF','wood','wood.svg']
+   ['مصالح ساختمانی','masaleh','materials-overview.webp'],
+   ['سیمان و ملزومات','cement','cement-mortar.webp'],
+   ['آهن‌آلات','steel','steel-rebar.webp'],
+   ['آجر و بلوک','brick-block','brick-block.webp'],
+   ['لوله و اتصالات','pipes','pipes-fittings.webp'],
+   ['برق و سیم‌کشی','electric','electrical-supplies.webp'],
+   ['روشنایی','lighting','lighting-electrical.webp'],
+   ['کاشی و سرامیک','tile','tile-stone.webp'],
+   ['چسب و ملات کاشی','tile-adhesive','tile-adhesives.webp'],
+   ['رنگ و عایق','paint','insulation-paint.webp'],
+   ['ابزار و تجهیزات','tools','tools-equipment.webp'],
+   ['چوب و MDF','wood','wood-mdf.webp'],
+   ['نما و دکوراسیون','facade','facade-cladding.webp'],
+   ['کناف و درای‌وال','drywall','drywall.webp'],
+   ['سقف و عایق رطوبتی','roofing','roofing-waterproof.webp'],
+   ['یراق‌آلات','hardware','hardware-fasteners.webp'],
+   ['پنجره و آلومینیوم','windows','windows-aluminum.webp'],
+   ['لوازم بهداشتی','sanitary','bathroom-sanitary.webp'],
+   ['تهویه و HVAC','hvac','hvac-ventilation.webp'],
+   ['داربست و تجهیزات کارگاهی','scaffolding','scaffolding.webp'],
   ];
-  foreach($cats as $i=>$c) Category::create(['name'=>$c[0],'slug'=>$c[1],'image'=>'/assets/img/products/'.$c[2],'sort_order'=>$i+1]);
+  foreach($cats as $i=>$c) Category::create([
+   'name'=>$c[0],'slug'=>$c[1],'image'=>'/assets/img/real/'.$c[2],'sort_order'=>$i+1
+  ]);
   $suppliers=[];
   foreach([['سیمان تهران','02188770001','تهران'],['ذوب آهن اصفهان','03136660002','اصفهان'],['پلیمر گلپایگان','03157440003','گلپایگان'],['کاشی سینا','03536220004','یزد'],['رنگ پارس','02144550005','تهران'],['ماکیتا ایران','02166770006','تهران']] as $s){$suppliers[]=Supplier::create(['name'=>$s[0],'phone'=>$s[1],'city'=>$s[2]]);}
   $c=Category::all()->keyBy('slug');
   $products=[
-   ['میلگرد آجدار A3 سایز ۱۴','rebar-a3-14','REB-A3-14','steel',1,418000,850,120,'rebar.svg',2.1],
-   ['سیمان پرتلند تیپ ۲','cement-type-2','CMT-002','cement',0,1980000,1240,300,'cement.svg',0.5],
-   ['تیرآهن IPE ۱۸','ipe-18','IPE-18','steel',1,468000,12,50,'beam.svg',-1.2],
-   ['آجر سفال ۱۵ سانتی','brick-15','BRK-015','masaleh',0,340000,5200,1000,'brick.svg',0.8],
-   ['لوله PVC فشار قوی ۱۱۰','pvc-110','PVC-110','pipes',2,2450000,50,100,'pipe.svg',0.0],
-   ['کاشی پرسلان ۶۰×۱۲۰','tile-60120','TILE-60120','tile',3,5980000,310,70,'tile.svg',0.0],
-   ['رنگ اکریلیک سفید ۲۰ کیلویی','paint-20w','PAINT-20W','paint',4,49800000,25,40,'paint.svg',0.0],
-   ['دریل چکشی ۸۵۰ وات','drill-850','DRL-850','tools',5,24900000,115,20,'drill.svg',0.0],
-   ['کابل افشان ۲.۵','wire-25','WIRE-25','electric',5,59000000,180,50,'electric.svg',0.0],
-   ['پارکت لمینت AC4','laminate-ac4','WOOD-AC4','wood',5,7680000,95,30,'wood.svg',0.0],
+   ['میلگرد آجدار A3 سایز ۱۴','rebar-a3-14','REB-A3-14','steel',1,418000,850,120,'steel-rebar.webp',2.1],
+   ['سیمان پرتلند تیپ ۲','cement-type-2','CMT-002','cement',0,1980000,1240,300,'cement-mortar.webp',0.5],
+   ['تیرآهن IPE ۱۸','ipe-18','IPE-18','steel',1,468000,12,50,'steel-rebar.webp',-1.2],
+   ['آجر سفال ۱۵ سانتی','brick-15','BRK-015','brick-block',0,340000,5200,1000,'brick-block.webp',0.8],
+   ['لوله PVC فشار قوی ۱۱۰','pvc-110','PVC-110','pipes',2,2450000,50,100,'pipes-fittings.webp',0.0],
+   ['کاشی پرسلان ۶۰×۱۲۰','tile-60120','TILE-60120','tile',3,5980000,310,70,'tile-stone.webp',0.0],
+   ['رنگ اکریلیک سفید ۲۰ کیلویی','paint-20w','PAINT-20W','paint',4,49800000,25,40,'insulation-paint.webp',0.0],
+   ['دریل چکشی ۸۵۰ وات','drill-850','DRL-850','tools',5,24900000,115,20,'tools-equipment.webp',0.0],
+   ['کابل افشان ۲.۵','wire-25','WIRE-25','electric',5,59000000,180,50,'electrical-supplies.webp',0.0],
+   ['پارکت لمینت AC4','laminate-ac4','WOOD-AC4','wood',5,7680000,95,30,'wood-mdf.webp',0.0],
+   ['سنگ نمای دکوراتیو','facade-stone','FCD-101','facade',3,12800000,180,30,'facade-cladding.webp',0.4],
+   ['صفحه گچ ضد رطوبت','drywall-moisture','DRY-012','drywall',0,6450000,420,80,'drywall.webp',0.2],
+   ['عایق رطوبتی رول پلیمری','roof-membrane','ROOF-20','roofing',4,18900000,140,30,'roofing-waterproof.webp',0.7],
+   ['ست یراق درب ساختمانی','door-hardware-set','HRD-100','hardware',5,15400000,90,20,'hardware-fasteners.webp',0.0],
+   ['پنل LED سقفی ۶۰×۶۰','led-panel-6060','LED-6060','lighting',5,22400000,130,25,'lighting-electrical.webp',-0.3],
+   ['چسب کاشی پودری ۲۰ کیلویی','tile-adhesive-20','ADH-020','tile-adhesive',3,5200000,260,60,'tile-adhesives.webp',0.5],
+   ['داربست مدولار گالوانیزه','modular-scaffolding','SCF-200','scaffolding',1,88500000,55,12,'scaffolding.webp',1.1],
+   ['پروفیل آلومینیوم ترمال‌بریک','thermalbreak-profile','WIN-THB','windows',1,37500000,75,20,'windows-aluminum.webp',0.6],
+   ['ست شیرآلات و لوازم بهداشتی','sanitary-fixture-set','SAN-500','sanitary',2,98500000,44,10,'bathroom-sanitary.webp',0.0],
+   ['کانال گالوانیزه تهویه','hvac-duct','HVAC-400','hvac',2,46500000,68,15,'hvac-ventilation.webp',0.9],
   ];
-  foreach($products as $i=>$p) Product::create(['name'=>$p[0],'slug'=>$p[1],'sku'=>$p[2],'category_id'=>$c[$p[3]]->id,'supplier_id'=>$suppliers[$p[4]]->id,'unit'=>$p[3]==='steel'?'کیلوگرم':'عدد','price'=>$p[5],'old_price'=>$i%3===0?(int)($p[5]*1.05):null,'stock'=>$p[6],'min_stock'=>$p[7],'image'=>'/assets/img/products/'.$p[8],'market_change'=>$p[9],'featured'=>$i<7]);
+  foreach($products as $i=>$p) Product::create([
+   'name'=>$p[0],'slug'=>$p[1],'sku'=>$p[2],'category_id'=>$c[$p[3]]->id,
+   'supplier_id'=>$suppliers[$p[4]]->id,'unit'=>$p[3]==='steel'?'کیلوگرم':'عدد',
+   'price'=>$p[5],'old_price'=>$i%3===0?(int)($p[5]*1.05):null,
+   'stock'=>$p[6],'min_stock'=>$p[7],'image'=>'/assets/img/real/'.$p[8],
+   'market_change'=>$p[9],'featured'=>$i<10
+  ]);
   $catalog=[
    'rebar-a3-14'=>['brand'=>'ذوب آهن اصفهان','origin'=>'ایران','weight'=>14,'loading_location'=>'کارخانه اصفهان','description'=>'میلگرد آجدار A3 مناسب سازه‌های بتنی و پروژه‌های عمرانی با کنترل کیفیت کارخانه.','specs'=>['استاندارد'=>'A3','سایز'=>'۱۴ میلی‌متر','طول شاخه'=>'۱۲ متر','محل بارگیری'=>'اصفهان']],
    'cement-type-2'=>['brand'=>'سیمان تهران','origin'=>'ایران','weight'=>50,'loading_location'=>'انبار تهران','description'=>'سیمان پرتلند تیپ ۲ مناسب بتن‌ریزی عمومی و پروژه‌های ساختمانی.','specs'=>['نوع'=>'پرتلند تیپ ۲','وزن'=>'۵۰ کیلوگرم','بسته‌بندی'=>'پاکت','محل بارگیری'=>'تهران']],
@@ -44,6 +78,18 @@ class DatabaseSeeder extends Seeder {
    'tile-60120'=>['brand'=>'کاشی سینا','origin'=>'ایران','weight'=>22,'loading_location'=>'یزد','description'=>'کاشی پرسلان ۶۰×۱۲۰ با جذب آب پایین و مناسب فضاهای داخلی.','specs'=>['ابعاد'=>'۶۰×۱۲۰','جنس'=>'پرسلان','سطح'=>'مات']],
    'paint-20w'=>['brand'=>'رنگ پارس','origin'=>'ایران','weight'=>20,'loading_location'=>'تهران','description'=>'رنگ اکریلیک سفید پایه آب با پوشش مناسب برای دیوارهای داخلی.','specs'=>['وزن'=>'۲۰ کیلوگرم','پایه'=>'آب','رنگ'=>'سفید']],
    'drill-850'=>['brand'=>'ماکیتا','origin'=>'ژاپن','weight'=>2.4,'loading_location'=>'تهران','description'=>'دریل چکشی ۸۵۰ وات مناسب کارگاه و مصارف ساختمانی.','specs'=>['توان'=>'۸۵۰ وات','نوع'=>'چکشی','گارانتی'=>'۱۸ ماه']],
+   'wire-25'=>['brand'=>'افشارنژاد','origin'=>'ایران','weight'=>null,'loading_location'=>'انبار تهران','description'=>'کابل افشان ساختمانی مناسب مدارهای روشنایی و پریز.','specs'=>['سطح مقطع'=>'۲.۵ میلی‌متر مربع','نوع'=>'افشان','روکش'=>'PVC']],
+   'laminate-ac4'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>null,'loading_location'=>'انبار مرکزی','description'=>'پارکت لمینت مقاوم مناسب فضاهای مسکونی و اداری.','specs'=>['کلاس سایش'=>'AC4','نوع'=>'لمینت','کاربرد'=>'کف داخلی']],
+   'facade-stone'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>18,'loading_location'=>'انبار مرکزی','description'=>'سنگ نمای دکوراتیو برای نمای داخلی و خارجی ساختمان.','specs'=>['کاربرد'=>'نما','نوع'=>'دکوراتیو','بسته‌بندی'=>'کارتن']],
+   'drywall-moisture'=>['brand'=>'کناف ایران','origin'=>'ایران','weight'=>24,'loading_location'=>'تهران','description'=>'صفحه گچی مقاوم در برابر رطوبت مناسب سقف و دیوار خشک.','specs'=>['ضخامت'=>'۱۲.۵ میلی‌متر','نوع'=>'MR','ابعاد'=>'۱۲۰×۲۴۰ سانتی‌متر']],
+   'roof-membrane'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>40,'loading_location'=>'انبار مرکزی','description'=>'عایق رطوبتی پلیمری رول‌شونده برای بام و سطوح ساختمانی.','specs'=>['عرض'=>'۱ متر','طول'=>'۱۰ متر','نوع'=>'پلیمری']],
+   'door-hardware-set'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>2.1,'loading_location'=>'تهران','description'=>'ست کامل یراق‌آلات درب شامل دستگیره، لولا و متعلقات نصب.','specs'=>['جنس'=>'فلزی','کاربرد'=>'درب ساختمانی','نوع'=>'ست کامل']],
+   'led-panel-6060'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>2.8,'loading_location'=>'تهران','description'=>'پنل LED سقفی کم‌مصرف مناسب فضاهای اداری و تجاری.','specs'=>['ابعاد'=>'۶۰×۶۰','نوع'=>'LED','نصب'=>'توکار']],
+   'tile-adhesive-20'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>20,'loading_location'=>'یزد','description'=>'چسب کاشی پودری پایه سیمانی برای نصب کاشی و سرامیک.','specs'=>['وزن'=>'۲۰ کیلوگرم','نوع'=>'پودری','کاربرد'=>'کاشی و سرامیک']],
+   'modular-scaffolding'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>32,'loading_location'=>'تهران','description'=>'داربست مدولار گالوانیزه مناسب پروژه‌های ساختمانی و صنعتی.','specs'=>['جنس'=>'فولاد گالوانیزه','نوع'=>'مدولار','کاربرد'=>'کارگاهی']],
+   'thermalbreak-profile'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>8.4,'loading_location'=>'تهران','description'=>'پروفیل آلومینیوم ترمال‌بریک برای پنجره و درب‌های عایق.','specs'=>['جنس'=>'آلومینیوم','نوع'=>'ترمال‌بریک','کاربرد'=>'پنجره و درب']],
+   'sanitary-fixture-set'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>18,'loading_location'=>'تهران','description'=>'ست شیرآلات و تجهیزات بهداشتی مناسب سرویس و حمام.','specs'=>['نوع'=>'ست کامل','آبکاری'=>'کروم','کاربرد'=>'سرویس بهداشتی']],
+   'hvac-duct'=>['brand'=>'ساختینو','origin'=>'ایران','weight'=>15,'loading_location'=>'تهران','description'=>'کانال گالوانیزه تهویه برای انتقال هوا در سیستم‌های HVAC.','specs'=>['جنس'=>'گالوانیزه','نوع'=>'کانال هوا','کاربرد'=>'تهویه مطبوع']],
   ];
   foreach(Product::all() as $product){
    $meta=$catalog[$product->slug]??['brand'=>'ساختینو','origin'=>'ایران','weight'=>null,'loading_location'=>'انبار مرکزی','description'=>'کالای ساختمانی تامین‌شده از فروشندگان معتبر.','specs'=>['واحد'=>$product->unit]];
@@ -81,7 +127,13 @@ class DatabaseSeeder extends Seeder {
   foreach([['REQ-1405-0214',0,'پروژه مجتمع مسکونی مهر','new',8500000000],['REQ-1405-0213',1,'ساختمان اداری پارس','review',4200000000],['REQ-1405-0212',3,'پروژه تجاری آفتاب','quoted',12000000000],['REQ-1405-0211',4,'پروژه صنعتی سپهر','negotiation',15400000000]] as $i=>$q){ProjectQuote::create(['customer_id'=>$customers[$q[1]]->id,'code'=>$q[0],'project_name'=>$q[2],'status'=>$q[3],'estimated_amount'=>$q[4],'requested_at'=>now()->subDays($i)]);}
   foreach([['پیگیری زمان تحویل میلگرد','شرکت سازه نوین','open','high'],['اصلاح فاکتور سفارش','گروه ساختمانی پارس','waiting','normal'],['استعلام هزینه باربری','مهندس رضایی','resolved','normal']] as $t){Ticket::create(['subject'=>$t[0],'customer_name'=>$t[1],'status'=>$t[2],'priority'=>$t[3]]);}
   foreach([
-   ["store_name","ساختینو"],["store_phone","۰۲۱ ۹۱۰۰ ۱۲۳۴"],["store_email","info@sakhtino.ir"],["store_address","تهران، دفتر مرکزی فروش"],["primary_color","#0d725b"]
+   ["store_name","ساختینو"],
+   ["store_phone","۰۲۱ ۹۱۰۰ ۱۲۳۴"],
+   ["store_email","info@sakhtino.ir"],
+   ["store_address","تهران، دفتر مرکزی فروش"],
+   ["primary_color","#0d725b"],
+   ["hero_image","/assets/img/real/hero-construction.webp"],
+   ["calculator_image","/assets/img/real/materials-overview.webp"]
   ] as [$key,$value]) StoreSetting::updateOrCreate(["key"=>$key],["value"=>$value]);
 
   DB::table("faqs")->insert([

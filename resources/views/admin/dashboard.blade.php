@@ -34,9 +34,9 @@
  <section class="panel stock-panel"><div class="panel-head"><h2>کالاهای کم‌موجودی</h2><a href="{{ route('admin.products') }}">مشاهده همه</a></div>
   @foreach($lowStock as $p)<div class="stock-row"><img src="{{ asset(ltrim($p->image,'/')) }}"><div><b>{{ $p->name }}</b><small>{{ optional($p->category)->name }}</small></div><strong>{{ \App\Support\Jalali::digits($p->stock) }}</strong><span class="{{ $p->stock<20?'danger':'warn' }}">{{ $p->stock<20?'کمبود موجودی':'در آستانه اتمام' }}</span></div>@endforeach
  </section>
- <section class="panel quote-panel"><div class="panel-head"><h2>آخرین استعلام‌های پروژه</h2><a href="{{ route('admin.module','projects') }}">مشاهده همه</a></div>
+ <section class="panel quote-panel"><div class="panel-head"><h2>آخرین استعلام‌های پروژه</h2><a href="{{ route('admin.quotes') }}">مشاهده همه</a></div>
   @foreach($quotes as $i=>$q)<div class="quote-row"><div><b>{{ $q->project_name }}</b><small>{{ optional($q->customer)->name ?: 'مشتری جدید' }}</small></div><span class="status q{{ $i%4 }}">{{ ['new'=>'جدید','review'=>'در حال بررسی','quoted'=>'پیشنهاد ارسال شد','negotiation'=>'مذاکره'][$q->status] ?? $q->status }}</span><small>{{ \App\Support\Jalali::date($q->requested_at) }}</small></div>@endforeach
  </section>
 </div>
-<section class="quick-banner"><div><b>مدیریت هوشمند کسب‌وکار مصالح ساختمانی</b><small>از تأمین و قیمت‌گذاری تا فروش، انبار و لجستیک در یک پنل یکپارچه</small></div><div class="quick-actions"><a href="{{ route('admin.products') }}">+ افزودن محصول</a><a href="{{ route('admin.orders') }}">+ ثبت سفارش</a><a href="{{ route('admin.module','reports') }}">گزارش فروش</a><a href="{{ route('admin.module','finance') }}">گزارش مالی</a></div></section>
+<section class="quick-banner"><div><b>مدیریت هوشمند کسب‌وکار مصالح ساختمانی</b><small>از تأمین و قیمت‌گذاری تا فروش، انبار و لجستیک در یک پنل یکپارچه</small></div><div class="quick-actions"><a href="{{ route('admin.products') }}">+ افزودن محصول</a><a href="{{ route('admin.orders') }}">+ ثبت سفارش</a><a href="{{ route('admin.reports') }}">گزارش فروش</a><a href="{{ route('admin.finance') }}">گزارش مالی</a></div></section>
 @endsection

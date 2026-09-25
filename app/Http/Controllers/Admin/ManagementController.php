@@ -301,4 +301,147 @@ class ManagementController extends Controller
             'Content-Disposition'=>'attachment; filename=orders.csv',
         ]);
     }
+    public function suppliers()
+    {
+        return view("admin.operations",[
+            "module"=>"suppliers","title"=>"تأمین و خرید داخلی",
+            "suppliers"=>\App\Models\Supplier::latest()->get(),
+        ]);
+    }
+
+    public function storeSupplier(Request $request)
+    {
+        $data=$request->validate([
+            "name"=>["required","string","max:150"],
+            "phone"=>["nullable","string","max:30"],
+            "city"=>["nullable","string","max:80"],
+            "status"=>["required","in:active,inactive"],
+        ]);
+        \App\Models\Supplier::create($data);
+        return back()->with("success","تأمین‌کننده ثبت شد.");
+    }
+
+    public function updateSupplier(Request $request,\App\Models\Supplier $supplier)
+    {
+        $data=$request->validate([
+            "name"=>["required","string","max:150"],
+            "phone"=>["nullable","string","max:30"],
+            "city"=>["nullable","string","max:80"],
+            "status"=>["required","in:active,inactive"],
+        ]);
+        $supplier->update($data);
+        return back()->with("success","اطلاعات تأمین‌کننده بروزرسانی شد.");
+    }
+
+    public function pricing()
+    {
+        return view("admin.operations",[
+            "module"=>"pricing","title"=>"قیمت‌گذاری",
+            "products"=>Product::with("category")->orderBy("name")->get(),
+        ]);
+    }
+
+    public function updatePrice(Request $request,Product $product)
+    {
+        $data=$request->validate([
+            "price"=>["required","integer","min:0"],
+            "old_price"=>["nullable","integer","min:0"],
+            "tax_percent"=>["required","numeric","min:0","max:100"],
+        ]);
+        if($product->price !== (int)$data["price"]){
+            \App\Models\PriceHistory::create([
+                "product_id"=>$product->id,
+                "price"=>(int)$data["price"],
+                "recorded_at"=>now(),
+            ]);
+        }
+        $product->update($data);
+        return back()->with("success","قیمت محصول بروزرسانی شد.");
+    }
+
+    public function logistics()
+    {
+        return view("admin.operations",[
+            "module"=>"logistics","title"=>"ارسال و لجستیک",
+            "shipments"=>\App\Models\Shipment::with("order")->latest()->get(),
+        ]);
+    }
+
+    public function updateShipment(Request $request,\App\Models\Shipment $shipment)
+    {
+        $data=$request->validate([
+            "carrier"=>["nullable","string","max:120"],
+            "tracking_code"=>["nullable","string","max:120"],
+            "status"=>["required","in:preparing,ready,in_transit,delivered,returned"],
+            "destination"=>["nullable","string","max:200"],
+        ]);
+        $shipment->update($data+["dispatched_at"=>$data["status"]==="preparing"?$shipment->dispatched_at:($shipment->dispatched_at??now())]);
+        $shipment->order()->update(["shipping_status"=>$data["status"]]);
+        return back()->with("success","وضعیت مرسوله بروزرسانی شد.");
+    }
+
+    public function users()
+    {
+        return view("admin.operations",[
+            "module"=>"users","title"=>"کاربران و نقش‌ها",
+            "users"=>\App\Models\User::latest()->get(),
+        ]);
+    }
+
+    public function updateUserRole(Request $request,\App\Models\User $user)
+    {
+        abort_if($user->is(auth()->user()) && $request->role!=="admin",422,"نقش مدیر فعلی قابل حذف نیست.");
+        $data=$request->validate(["role"=>["required","in:admin,user"]]);
+        $user->update($data);
+        return back()->with("success","نقش کاربر بروزرسانی شد.");
+    }
+
+    public function discounts()
+    {
+        return view("admin.operations",[
+            "module"=>"discounts","title"=>"کدهای تخفیف",
+            "coupons"=>\App\Models\Coupon::latest()->get(),
+        ]);
+    }
+
+    public function storeCoupon(Request $request)
+    {
+        $data=$request->validate([
+            "code"=>["required","string","max:50","unique:coupons,code"],
+            "type"=>["required","in:percent,fixed"],
+            "value"=>["required","integer","min:1"],
+            "min_order"=>["nullable","integer","min:0"],
+            "expires_at"=>["nullable","date"],
+        ]);
+        \App\Models\Coupon::create($data+["active"=>true]);
+        return back()->with("success","کد تخفیف ساخته شد.");
+    }
+
+    public function updateCoupon(Request $request,\App\Models\Coupon $coupon)
+    {
+        $data=$request->validate([
+            "active"=>["required","boolean"],
+            "expires_at"=>["nullable","date"],
+        ]);
+        $coupon->update($data);
+        return back()->with("success","کد تخفیف بروزرسانی شد.");
+    }
+
+    public function tickets()
+    {
+        return view("admin.operations",[
+            "module"=>"tickets","title"=>"تیکت‌ها و پشتیبانی",
+            "tickets"=>\App\Models\Ticket::latest()->get(),
+        ]);
+    }
+
+    public function updateTicket(Request $request,\App\Models\Ticket $ticket)
+    {
+        $data=$request->validate([
+            "status"=>["required","in:open,waiting,resolved,closed"],
+            "priority"=>["required","in:low,normal,high,urgent"],
+        ]);
+        $ticket->update($data);
+        return back()->with("success","تیکت بروزرسانی شد.");
+    }
 }

@@ -86,7 +86,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
     Route::get('/settings',[ManagementController::class,'settings'])->name('settings');
     Route::post('/settings',[ManagementController::class,'saveSettings'])->name('settings.save');
 
-    Route::get('/{module}',[ModuleController::class,'show'])
-        ->where('module','suppliers|pricing|logistics|users|discounts|tickets')
-        ->name('module');
+    Route::get('/suppliers',[ManagementController::class,'suppliers'])->name('suppliers');
+    Route::post('/suppliers',[ManagementController::class,'storeSupplier'])->name('suppliers.store');
+    Route::patch('/suppliers/{supplier}',[ManagementController::class,'updateSupplier'])->name('suppliers.update');
+
+    Route::get('/pricing',[ManagementController::class,'pricing'])->name('pricing');
+    Route::patch('/pricing/{product}',[ManagementController::class,'updatePrice'])->name('pricing.update');
+
+    Route::get('/logistics',[ManagementController::class,'logistics'])->name('logistics');
+    Route::patch('/logistics/{shipment}',[ManagementController::class,'updateShipment'])->name('logistics.update');
+
+    Route::get('/users',[ManagementController::class,'users'])->name('users');
+    Route::patch('/users/{user}/role',[ManagementController::class,'updateUserRole'])->name('users.role');
+
+    Route::get('/discounts',[ManagementController::class,'discounts'])->name('discounts');
+    Route::post('/discounts',[ManagementController::class,'storeCoupon'])->name('discounts.store');
+    Route::patch('/discounts/{coupon}',[ManagementController::class,'updateCoupon'])->name('discounts.update');
+
+    Route::get('/tickets',[ManagementController::class,'tickets'])->name('tickets');
+    Route::patch('/tickets/{ticket}',[ManagementController::class,'updateTicket'])->name('tickets.update');
 });

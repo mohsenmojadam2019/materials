@@ -173,4 +173,44 @@ class MaterialsUiTest extends TestCase
             $this->actingAs($admin)->get($url)->assertOk();
         }
     }
+
+    public function test_remaining_admin_operations_are_real_and_editable(): void
+    {
+        $admin=User::factory()->create(["role"=>"admin"]);
+
+        foreach(["/admin/suppliers","/admin/pricing","/admin/logistics","/admin/users","/admin/discounts","/admin/tickets"] as $url){
+            $this->actingAs($admin)->get($url)->assertOk();
+        }
+
+        $this->actingAs($admin)->post(route("admin.suppliers.store"),[
+            "name"=>"تأمین تست","phone"=>"021000000","city"=>"تهران","status"=>"active",
+        ])->assertSessionHas("success");
+        $this->assertDatabaseHas("suppliers",["name"=>"تأمین تست"]);
+
+        $product=Product::firstOrFail();
+        $this->actingAs($admin)->patch(route("admin.pricing.update",$product),[
+            "price"=>$product->price+1000,"old_price"=>$product->price,"tax_percent"=>10,
+        ])->assertSessionHas("success");
+
+        $shipment=\App\Models\Shipment::firstOrFail();
+        $this->actingAs($admin)->patch(route("admin.logistics.update",$shipment),[
+            "carrier"=>"باربری تست","tracking_code"=>"TEST-TRACK","status"=>"in_transit","destination"=>"تهران",
+        ])->assertSessionHas("success");
+        $this->assertDatabaseHas("shipments",["id"=>$shipment->id,"tracking_code"=>"TEST-TRACK"]);
+
+        $user=User::factory()->create(["role"=>"user"]);
+        $this->actingAs($admin)->patch(route("admin.users.role",$user),["role"=>"admin"])->assertSessionHas("success");
+        $this->assertDatabaseHas("users",["id"=>$user->id,"role"=>"admin"]);
+
+        $this->actingAs($admin)->post(route("admin.discounts.store"),[
+            "code"=>"PROJECT10","type"=>"percent","value"=>10,"min_order"=>1000000,
+        ])->assertSessionHas("success");
+        $this->assertDatabaseHas("coupons",["code"=>"PROJECT10","value"=>10]);
+
+        $ticket=\App\Models\Ticket::firstOrFail();
+        $this->actingAs($admin)->patch(route("admin.tickets.update",$ticket),[
+            "status"=>"resolved","priority"=>"normal",
+        ])->assertSessionHas("success");
+        $this->assertDatabaseHas("tickets",["id"=>$ticket->id,"status"=>"resolved"]);
+    }
 }

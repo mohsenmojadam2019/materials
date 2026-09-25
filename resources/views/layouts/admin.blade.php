@@ -6,17 +6,17 @@
 <a class="{{ request()->routeIs("admin.products*")?"active":"" }}" href="{{ route("admin.products") }}"><i>◇</i><span>محصولات</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.categories*")?"active":"" }}" href="{{ route("admin.categories") }}"><i>☷</i><span>دسته‌بندی‌ها</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.inventory*")?"active":"" }}" href="{{ route("admin.inventory") }}"><i>⌂</i><span>انبار و موجودی</span><b>‹</b></a>
-<a href="{{ route("admin.module","suppliers") }}"><i>▥</i><span>تأمین و خرید داخلی</span><b>‹</b></a>
-<a href="{{ route("admin.module","pricing") }}"><i>٪</i><span>قیمت‌گذاری</span><b>‹</b></a>
+<a href="{{ route("admin.suppliers") }}"><i>▥</i><span>تأمین و خرید داخلی</span><b>‹</b></a>
+<a href="{{ route("admin.pricing") }}"><i>٪</i><span>قیمت‌گذاری</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.customers")?"active":"" }}" href="{{ route("admin.customers") }}"><i>♙</i><span>مشتریان و CRM</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.quotes*")?"active":"" }}" href="{{ route("admin.quotes") }}"><i>▤</i><span>استعلام و پیش‌فاکتور</span><b>‹</b></a>
-<a href="{{ route("admin.module","logistics") }}"><i>🚚</i><span>ارسال و لجستیک</span><b>‹</b></a>
+<a href="{{ route("admin.logistics") }}"><i>🚚</i><span>ارسال و لجستیک</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.finance")?"active":"" }}" href="{{ route("admin.finance") }}"><i>▣</i><span>مالی و مطالبات</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.reports")?"active":"" }}" href="{{ route("admin.reports") }}"><i>▥</i><span>گزارش‌ها</span><b>‹</b></a>
-<a href="{{ route("admin.module","users") }}"><i>♙</i><span>کاربران و نقش‌ها</span><b>‹</b></a>
-<a href="{{ route("admin.module","discounts") }}"><i>٪</i><span>تخفیف‌ها</span><b>‹</b></a>
+<a href="{{ route("admin.users") }}"><i>♙</i><span>کاربران و نقش‌ها</span><b>‹</b></a>
+<a href="{{ route("admin.discounts") }}"><i>٪</i><span>تخفیف‌ها</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.content*")?"active":"" }}" href="{{ route("admin.content") }}"><i>▤</i><span>محتوا و بلاگ</span><b>‹</b></a>
-<a href="{{ route("admin.module","tickets") }}"><i>✉</i><span>تیکت‌ها</span><b>‹</b></a>
+<a href="{{ route("admin.tickets") }}"><i>✉</i><span>تیکت‌ها</span><b>‹</b></a>
 <a class="{{ request()->routeIs("admin.settings*")?"active":"" }}" href="{{ route("admin.settings") }}"><i>⚙</i><span>تنظیمات White-label</span><b>‹</b></a>
 </nav></aside>
 <section class="admin-body-content"><header class="admin-top"><div class="admin-user"><span class="avatar">{{ mb_substr(auth()->user()->name,0,1) }}</span><div><b>{{ auth()->user()->name }}</b><small>مدیر سیستم</small></div></div><div class="admin-date"><span>امروز</span><b>{{ \App\Support\Jalali::today() }}</b></div><div class="admin-search">⌕ <input placeholder="جستجوی محصول، سفارش یا مشتری ..."></div><a class="view-store" href="{{ route("home") }}">مشاهده فروشگاه ↗</a><form method="post" action="{{ route("logout") }}" class="admin-logout">@csrf<button>خروج</button></form></header>

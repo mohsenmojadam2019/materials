@@ -1,0 +1,9 @@
+@extends('layouts.store')
+@section('title','جزئیات سفارش | '.config('store.name'))
+@section('content')
+@php($fa=fn($n)=>\App\Support\Jalali::digits(number_format($n)))
+<section class="simple-page"><div class="page-hero-small"><div><span>سفارش {{ $order->order_no }}</span><h1>جزئیات سفارش</h1><p>{{ \App\Support\Jalali::date($order->ordered_at) }}</p></div><a href="{{ route('account.orders') }}">همه سفارش‌ها ←</a></div>
+ <div class="order-detail-grid"><section class="panel order-items"><h2>اقلام سفارش</h2>@foreach($order->items as $item)<div><img src="{{ asset(ltrim($item->product->image,'/')) }}"><span><b>{{ $item->product->name }}</b><small>{{ $item->qty }} × {{ $fa($item->unit_price) }}</small></span><strong>{{ $fa($item->total) }} ریال</strong></div>@endforeach</section><aside class="panel cart-summary"><h2>اطلاعات تحویل</h2><div><span>تحویل‌گیرنده</span><b>{{ $order->recipient }}</b></div><div><span>موبایل</span><b>{{ $order->phone }}</b></div><div><span>آدرس</span><b>{{ $order->province }}، {{ $order->city }}، {{ $order->shipping_address }}</b></div><div><span>روش پرداخت</span><b>{{ $order->payment_method }}</b></div><hr><div class="grand-total"><span>مبلغ کل</span><strong>{{ $fa($order->total) }} ریال</strong></div></aside></div>
+ <section class="panel tracking-box"><h2>رهگیری مرسوله</h2>@forelse($order->shipments as $s)<div class="tracking-row"><span class="tracking-dot"></span><div><b>{{ $s->carrier }}</b><small>کد رهگیری: {{ $s->tracking_code ?: 'پس از تحویل به باربری ثبت می‌شود' }}</small></div><strong>{{ $s->status }}</strong></div>@empty<p>مرسوله هنوز ایجاد نشده است.</p>@endforelse</section>
+</section>
+@endsection

@@ -1,0 +1,6 @@
+@extends("layouts.store")
+@section("title","علاقه‌مندی‌ها | ".config("store.name"))
+@section("content")
+@php($fa=fn($n)=>\App\Support\Jalali::digits(number_format($n)))
+<section class="simple-page"><div class="page-hero-small"><div><span>لیست شخصی</span><h1>علاقه‌مندی‌های من</h1><p>محصولاتی که برای خرید بعدی ذخیره کرده‌اید.</p></div><a href="{{ route("home") }}">ادامه خرید ←</a></div><div class="products-grid wide-products">@forelse($products as $p)<article class="product-card"><form method="post" action="{{ route("wishlist.toggle",$p) }}">@csrf<button class="heart active-heart">♥</button></form><a href="{{ route("product.show",$p) }}"><div class="product-visual"><img src="{{ asset(ltrim($p->image,"/")) }}"></div><h3>{{ $p->name }}</h3></a><small>{{ $p->brand }} • {{ $p->loading_location }}</small><strong>{{ $fa($p->price) }} ریال</strong><div class="card-actions"><form method="post" action="{{ route("cart.add",$p) }}">@csrf<button class="add-btn">افزودن به سبد</button></form><form method="post" action="{{ route("compare.toggle",$p) }}">@csrf<button class="mini-outline">⇄</button></form></div></article>@empty<div class="empty-state large-empty">لیست علاقه‌مندی خالی است.</div>@endforelse</div></section>
+@endsection

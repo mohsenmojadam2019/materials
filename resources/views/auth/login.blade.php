@@ -9,7 +9,7 @@
 <body class="login-page">
 <div class="login-shell">
  <section class="login-visual">
-  <div class="login-brand"><span>س</span><div><b>ساختینو</b><small>بازار آنلاین مصالح ساختمانی</small></div></div>
+  <div class="login-brand"><span>س</span><div><b>ساختینو</b><small>فروشگاه تخصصی مصالح ساختمانی</small></div></div>
   <div class="login-copy">
    <span>{{ $adminMode ? 'پنل مدیریت حرفه‌ای' : 'حساب مشتری' }}</span>
    <h1>{{ $adminMode ? 'مدیریت فروش، انبار و سفارش‌ها' : 'خرید سریع و مدیریت سفارش‌ها' }}</h1>
@@ -31,6 +31,7 @@
     <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
    </label>
    <label class="remember"><input type="checkbox" name="remember" value="1"> مرا به خاطر بسپار</label>
+   @unless($adminMode)<a class="login-back" href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>@endunless
    <button type="submit">{{ $adminMode ? 'ورود به پنل مدیریت' : 'ورود به حساب' }}</button>
   </form>
   <div class="login-switch">

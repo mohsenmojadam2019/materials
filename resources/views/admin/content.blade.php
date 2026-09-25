@@ -1,0 +1,8 @@
+@extends('layouts.admin')
+@section('title','محتوا و بلاگ')
+@section('page-title','مدیریت محتوا و بلاگ')
+@section('page-subtitle','انتشار مقاله برای SEO و آموزش مشتریان')
+@section('content')
+<section class="panel content-editor"><h2>مقاله جدید</h2><form method="post" action="{{ route('admin.content.store') }}" enctype="multipart/form-data">@csrf<div class="form-grid"><label>عنوان<input name="title" required></label><label>دسته<select name="category"><option>راهنمای خرید</option><option>قیمت و بازار</option><option>اجرای پروژه</option></select></label><label>تصویر شاخص<input type="file" name="image" accept="image/*"></label><label class="span2">خلاصه<textarea name="excerpt"></textarea></label><label class="span2">متن مقاله<textarea class="article-editor" name="body" required></textarea></label></div><button class="main-action">انتشار مقاله</button></form></section>
+<section class="panel data-panel"><div class="panel-head"><h2>مقالات</h2></div><div class="table-wrap"><table><thead><tr><th>عنوان</th><th>دسته</th><th>وضعیت</th><th>تاریخ</th><th>لینک</th></tr></thead><tbody>@foreach($articles as $a)<tr><td><b>{{ $a->title }}</b></td><td>{{ $a->category }}</td><td><span class="{{ $a->published?'success':'warn' }}">{{ $a->published?'منتشر':'پیش‌نویس' }}</span></td><td>{{ $a->published_at?\App\Support\Jalali::date($a->published_at):'—' }}</td><td><a class="mini-btn" target="_blank" href="{{ route('article',$a) }}">مشاهده</a></td></tr>@endforeach</tbody></table></div></section>
+@endsection

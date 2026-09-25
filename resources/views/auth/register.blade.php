@@ -9,7 +9,7 @@
 <body class="login-page">
 <div class="login-shell">
  <section class="login-visual">
-  <div class="login-brand"><span>س</span><div><b>ساختینو</b><small>بازار آنلاین مصالح ساختمانی</small></div></div>
+  <div class="login-brand"><span>س</span><div><b>ساختینو</b><small>فروشگاه تخصصی مصالح ساختمانی</small></div></div>
   <div class="login-copy">
    <span>عضویت مشتری</span>
    <h1>حساب کاربری خود را بسازید</h1>

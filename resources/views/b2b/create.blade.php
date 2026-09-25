@@ -1,0 +1,5 @@
+@extends('layouts.store')
+@section('title',($type==='credit'?'درخواست فروش اعتباری':'درخواست خرید عمده').' | '.config('store.name'))
+@section('content')
+<section class="simple-page"><div class="page-hero-small"><div><span>B2B مستقیم از شرکت</span><h1>{{ $type==='credit'?'درخواست فروش اعتباری':'درخواست خرید عمده' }}</h1><p>درخواست شما مستقیماً توسط واحد فروش شرکت بررسی می‌شود.</p></div></div><form class="panel b2b-form" method="post" action="{{ route('b2b.store',$type) }}">@csrf<div class="form-grid"><label>نام شرکت<input name="company_name"></label><label>شناسه ملی<input name="national_id"></label><label>نام تماس<input name="contact_name" value="{{ auth()->user()->name }}" required></label><label>موبایل<input name="phone" required></label><label>مبلغ تقریبی (ریال)<input type="number" name="amount" min="0"></label>@if($type==='credit')<label>مدت اعتبار (روز)<input type="number" name="term_days" min="0" max="365"></label>@endif<label class="span2">توضیحات<textarea name="description" placeholder="لیست تقریبی کالا، زمان موردنیاز و توضیحات پروژه"></textarea></label></div><button class="primary-product-btn">ثبت درخواست</button></form></section>
+@endsection
